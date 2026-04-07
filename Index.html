@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator Pintar</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 260px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #display {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      text-align: right;
+      padding: 5px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      background: #ddd;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #bbb;
+    }
+
+    .zero {
+      grid-column: span 2;
+    }
+
+    #penjelasan {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+
+</head>
+<body>
+
+<div class="calculator">
+  <h2>Kalkulator Pintar</h2>
+
+  <input type="text" id="display" disabled>
+
+  <div class="buttons">
+    <button onclick="clearDisplay()">C</button>
+    <button onclick="appendValue('/')">÷</button>
+    <button onclick="appendValue('*')">×</button>
+    <button onclick="deleteLast()">⌫</button>
+
+    <button onclick="appendValue('7')">7</button>
+    <button onclick="appendValue('8')">8</button>
+    <button onclick="appendValue('9')">9</button>
+    <button onclick="appendValue('-')">-</button>
+
+    <button onclick="appendValue('4')">4</button>
+    <button onclick="appendValue('5')">5</button>
+    <button onclick="appendValue('6')">6</button>
+    <button onclick="appendValue('+')">+</button>
+
+    <button onclick="appendValue('1')">1</button>
+    <button onclick="appendValue('2')">2</button>
+    <button onclick="appendValue('3')">3</button>
+    <button onclick="hitung()">=</button>
+
+    <button onclick="appendValue('0')" class="zero">0</button>
+    <button onclick="appendValue('.')">.</button>
+  </div>
+
+  <p id="penjelasan"></p>
+</div>
+
+<script>
+  let display = document.getElementById("display");
+  let penjelasan = document.getElementById("penjelasan");
+
+  function appendValue(value) {
+    display.value += value;
+  }
+
+  function clearDisplay() {
+    display.value = "";
+    penjelasan.innerText = "";
+  }
+
+  function deleteLast() {
+    display.value = display.value.slice(0, -1);
+  }
+
+  function hitung() {
+    try {
+      let ekspresi = display.value;
+      let hasil = eval(ekspresi);
+
+      let teks = ekspresi
+        .replace("*", "×")
+        .replace("/", "÷");
+
+      penjelasan.innerText = "Hasil dari " + teks + " adalah " + hasil;
+      display.value = hasil;
+    } catch {
+      penjelasan.innerText = "Terjadi kesalahan!";
+    }
+  }
+</script>
+
+</body>
+</html>
